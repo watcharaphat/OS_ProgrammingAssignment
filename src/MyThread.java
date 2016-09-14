@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -6,9 +8,13 @@ import java.util.Scanner;
 public class MyThread implements Runnable {
     private Thread t;
     private String threadName;
+    private ArrayList<UserTicket> ticket = new ArrayList<UserTicket>();
+
 
     public static TimeStamp TS = new TimeStamp();
     public static Scanner sc = new Scanner(System.in);
+    public static Random rand = new Random();
+
     public static String s = "ABCDFGHIJKLMNOPQRSTUVWXYZ";
 
     MyThread(String name) {
@@ -39,6 +45,10 @@ public class MyThread implements Runnable {
             t = new Thread(this, threadName);
             t.start();
         }
+    }
+
+    public void randTicket(Theater m) {
+
     }
 
     public static void main(String[] args) {
