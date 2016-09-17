@@ -33,26 +33,33 @@ public class MyThread implements Runnable {
         try {
             for (int i = 0; i < 10; i++) {
                 getRandomTheaterAndTicket();
-                Thread.sleep(50);
+                // Thread.sleep(50);
             }
-            Thread.sleep(1000);
+            if(threadName == "Apple")
+                Thread.sleep(1000);
+            else if(threadName == "Mango")
+                Thread.sleep(2000);
+            else if(threadName == "Tomato")
+                Thread.sleep(3000);
+            else if(threadName == "Melon")
+                Thread.sleep(4000);
+            else if(threadName == "SuperTamz")
+                Thread.sleep(5000);
+
         } catch (InterruptedException e) {
             System.out.println("Thread " + threadName + " interrupted.");
         }
 
-        System.out.println("Thread: " + threadName + ", Result\n************************************\n");
-        System.out.println("Thread: " + threadName + ", " + userTicket[4]);
-        for (int i = 0; i < 5; i++) {
-            if (userTicket[i].isExist()) {
-                System.out.println("Thread: " + threadName + ", " + userTicket[i]);
-            }
-        }
+        showMyTicket();
         System.out.println("Thread " + threadName + " exiting.\n");
     }
 
     public void showMyTicket() {
+        System.out.println("Thread: " + threadName + ", Result\n************************************");
         for (int i = 0; i < 5; i++) {
-
+            if (userTicket[i].isExist()) {
+                System.out.println("Thread: " + threadName + ", " + userTicket[i]);
+            }
         }
     }
 
@@ -127,6 +134,15 @@ public class MyThread implements Runnable {
 
         MyThread T2 = new MyThread("Mango");
         T2.start();
+
+        MyThread T3 = new MyThread("Tomato");
+        T3.start();
+
+        MyThread T4 = new MyThread("Melon");
+        T4.start();
+
+        MyThread T5 = new MyThread("SuperTamz");
+        T5.start();
     }
 
 }
