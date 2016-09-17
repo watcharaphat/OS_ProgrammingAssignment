@@ -45,9 +45,8 @@ public class MyThread implements Runnable {
             if(userTicket[i].isExist()) {
                 System.out.println("Thread: " + threadName + ", " + userTicket[i]);
             }
-            System.out.println();
         }
-        System.out.println("Thread " + threadName + " exiting.");
+        System.out.println("Thread " + threadName + " exiting.\n");
     }
 
     public void showMyTicket() {
