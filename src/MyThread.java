@@ -35,11 +35,18 @@ public class MyThread implements Runnable {
                 getRandomTheaterAndTicket();
                 Thread.sleep(50);
             }
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             System.out.println("Thread " + threadName + " interrupted.");
         }
 
-        System.out.println("Thread: " + threadName + ", Result");
+        System.out.println("Thread: " + threadName + ", Result\n************************************\n");
+        for(int i = 0; i < 5; i++) {
+            if(userTicket[i].isExist()) {
+                System.out.println("Thread: " + threadName + ", " + userTicket[i]);
+            }
+            System.out.println();
+        }
         System.out.println("Thread " + threadName + " exiting.");
     }
 
