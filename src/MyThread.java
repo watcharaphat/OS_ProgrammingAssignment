@@ -11,7 +11,7 @@ public class MyThread implements Runnable {
 
     public static Theater[] m = new Theater[5];
 
-    public static String[] Movies = {"Fanday", "Me Before You", "Kubo", "W", "Captain America: CIVIL WAR"};
+    public static String[] Movies = {"Fanday", "Me Before You", "Kubo", "W", "Divergent"};
     public static TimeStamp TS = new TimeStamp();
     public static Random rand = new Random();
 
@@ -41,8 +41,9 @@ public class MyThread implements Runnable {
         }
 
         System.out.println("Thread: " + threadName + ", Result\n************************************\n");
-        for(int i = 0; i < 5; i++) {
-            if(userTicket[i].isExist()) {
+        System.out.println("Thread: " + threadName + ", " + userTicket[4]);
+        for (int i = 0; i < 5; i++) {
+            if (userTicket[i].isExist()) {
                 System.out.println("Thread: " + threadName + ", " + userTicket[i]);
             }
         }
@@ -113,7 +114,7 @@ public class MyThread implements Runnable {
     }
 
     public static void initTheater() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             m[i] = new Theater(Movies[i]);
         }
     }
