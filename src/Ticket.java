@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Objects;
 import java.util.Vector;
 
 /**
@@ -8,9 +10,11 @@ import java.util.Vector;
 public class Ticket {
     private String Seat;
     private Vector userName;
+    // private Vector<Ticket> vtTicket = new Vector<Ticket>();
 
-    Ticket() {
-        this.userName = new Vector();
+    Ticket(String seat) {
+        this.Seat = seat;
+        userName = new Vector();
     }
 
     public void setSeat(String s) {
@@ -19,5 +23,9 @@ public class Ticket {
 
     public void onTicketAddUser(String userName) {
         this.userName.add(userName);
+    }
+
+    public void onTicketAddUserAll(Collection c) {
+        this.userName.addAll(c);
     }
 }
