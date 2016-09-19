@@ -28,7 +28,7 @@ public class MyThread implements Runnable {
     public void run() {
         System.out.println("Running " + threadName);
         try {
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 30; i++) {
                 getRandomTheaterTicket();
                 Thread.sleep(1000);
             }
