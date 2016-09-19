@@ -2,7 +2,7 @@ import java.util.*;
 
 /**
  * Created by watcharaphat on 9/12/2016 AD.
- */
+*/
 public class Theater {
     private String movieName;
     private Vector<String> availableSeat = new Vector<String>();
@@ -26,6 +26,10 @@ public class Theater {
         }
     }
 
+    public int coutAvailableSeat() {
+        return this.availableSeat.size();
+    }
+
     public String getMovieName() {
         return this.movieName;
     }
@@ -38,8 +42,14 @@ public class Theater {
         this.availableSeat.remove(s);
     }
 
-    public void CancelTSeats(Vector v) {
+    public void CancelSeats(Vector v) {
         this.availableSeat.addAll(v);
+    }
+
+    public void CancelSeat(String s) {
+        if(s == "") return;
+
+        this.availableSeat.add(s);
     }
 
     public static int getIndexFromSeat(String seat) {
@@ -47,20 +57,37 @@ public class Theater {
     }
 
     public void offerSeat(MyThread T ,int n, int position) {
-        Vector vtOfferSeat = new Vector();
+        // if(availableSeat.size() < n)
+        //    return;
+
         for(int i = 0; i < n; i++) {
-            if(n > availableSeat.size()) {
-                System.out.println("Out of ticket.");
+            if(this.coutAvailableSeat() == 0) {
+                // System.out.println("Out of ticket.");
                 break;
             }
 
-            int r = rand.nextInt(this.availableSeat.size());
-            String s = availableSeat.get(r);
+            // one ticket for each i
+            int r = rand.nextInt(this.coutAvailableSeat());
+
+            String s = "";
+
+            try {
+                s = availableSeat.get(r);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("ArrayIndexOutOfBoundException: " + e);
+            }
 
             ReserveSeat(s);
 
-            ticket[getIndexFromSeat(s)].onTicketAddUser(T.getThreadName());
-            T.userTicket[position].onUserTicketAddTicket(s);
+            if(T.decisionAccept() && s != "") {
+                T.userTicket[position].onUserTicketAddTicket(s);
+                ticket[getIndexFromSeat(s)].onTicketAddUser(T.getThreadName());
+            }
+
+            else {
+                // System.out.println("Cancel seat for thread: " + T.getThreadName());
+                CancelSeat(s);
+            }
 
             // Add user to ticket
 

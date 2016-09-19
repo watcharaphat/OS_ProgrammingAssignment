@@ -1,5 +1,4 @@
 import java.util.Random;
-import java.util.Vector;
 
 /**
  * Created by watcharaphat on 9/11/2016 AD.
@@ -9,13 +8,11 @@ public class MyThread implements Runnable {
     private String threadName;
     public UserTicket[] userTicket;
 
-    public static Theater[] m = new Theater[5];
 
+    public static Theater[] m = new Theater[5];
     public static String[] Movies = {"Fanday", "Me Before You", "Kubo", "W", "Divergent"};
     public static TimeStamp TS = new TimeStamp();
     public static Random rand = new Random();
-
-    // public static String s = "ABCDFGHIJKLMNOPQRSTUVWXYZ";
 
     MyThread(String name) {
         this.threadName = name;
@@ -31,10 +28,11 @@ public class MyThread implements Runnable {
     public void run() {
         System.out.println("Running " + threadName);
         try {
-            for (int i = 0; i < 10; i++) {
-                getRandomTheaterAndTicket();
-                // Thread.sleep(50);
+            for (int i = 0; i < 100; i++) {
+                getRandomTheaterTicket();
+                Thread.sleep(50);
             }
+
             if(threadName == "Apple")
                 Thread.sleep(1000);
             else if(threadName == "Mango")
@@ -63,28 +61,6 @@ public class MyThread implements Runnable {
         }
     }
 
-    /*
-
-    // this is the code for testing thread.
-
-    @Override
-    public void run() {
-        System.out.println("Running " + threadName);
-        try {
-            for (int i = 0; i < 10; i++) {
-                char c = s.charAt(s.length() - 1);
-                s = s.substring(0, s.length() - 1);
-                System.out.println("Thread " + threadName + ", i:" + i + " c: " + c + "\t" + TS.getTimeStamp());
-                Thread.sleep(50);
-            }
-        } catch (InterruptedException e) {
-            System.out.println("Thread " + threadName + " interrupted.");
-        }
-        System.out.println("Thread " + threadName + " exiting.");
-
-    }
-    */
-
     public void start() {
         initTicket();
 
@@ -102,10 +78,11 @@ public class MyThread implements Runnable {
         }
     }
 
-    public void getRandomTheaterAndTicket() {
+    public void getRandomTheaterTicket() {
         int r = rand.nextInt(5);
         try {
-            m[r].offerSeat(this, rand.nextInt(5) + 1, r);
+            if(m[r].coutAvailableSeat() > 0)
+                m[r].offerSeat(this, rand.nextInt(m[r].coutAvailableSeat() + 1), r);
         } catch (NullPointerException e) {
             System.out.println("Thread: " + threadName + ", NullPointerException " + "r: " + r);
         }
@@ -113,7 +90,7 @@ public class MyThread implements Runnable {
         // userTicket[r].onUserTicketAddTicket(v.get(i).toString());
     }
 
-    private boolean decition() {
+    public boolean decisionAccept() {
         if (rand.nextInt(2) > 0)
             return true;
         else
