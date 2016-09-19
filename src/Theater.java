@@ -81,6 +81,8 @@ public class Theater {
 
             ReserveSeat(s);
 
+            T.sleepThread(rand.nextInt(30000) + 1);
+
             if(T.decisionAccept() && s != "") {
                 System.out.println("[" + TS.getTimeStamp() + "]" + " Accept seat " + "[" + movieName + ": "+ s + "]\t"  + " for thread: " + T.getThreadName());
                 T.userTicket[position].onUserTicketAddTicket(s);

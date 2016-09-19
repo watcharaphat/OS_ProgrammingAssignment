@@ -24,6 +24,14 @@ public class MyThread implements Runnable {
         return this.threadName;
     }
 
+    public void sleepThread(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            System.out.println("Thread " + threadName + " interrupted.");
+        }
+    }
+
     @Override
     public void run() {
         System.out.println("Running " + threadName);
