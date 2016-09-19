@@ -56,7 +56,7 @@ public class Theater {
         return ( (int)seat.charAt(0) - 'A' )*4 + ( (int)seat.charAt(1) - '1');
     }
 
-    public void offerSeat(MyThread T ,int n, int position) {
+    public void offerSeat(MyThread T ,int n, int position, TimeStamp TS) {
         // if(availableSeat.size() < n)
         //    return;
 
@@ -82,12 +82,13 @@ public class Theater {
             ReserveSeat(s);
 
             if(T.decisionAccept() && s != "") {
+                System.out.println("[" + TS.getTimeStamp() + "]" + " Accept seat " + "[" + movieName + ": "+ s + "]\t"  + " for thread: " + T.getThreadName());
                 T.userTicket[position].onUserTicketAddTicket(s);
                 ticket[getIndexFromSeat(s)].onTicketAddUser(T.getThreadName());
             }
 
             else {
-                // System.out.println("Cancel seat for thread: " + T.getThreadName());
+                 System.out.println("[" + TS.getTimeStamp() + "]" + " Cancel seat " + "[" + movieName + ": "+ s + "]\t"  + " for thread: " + T.getThreadName());
                 CancelSeat(s);
             }
 

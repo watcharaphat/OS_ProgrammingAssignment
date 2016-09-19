@@ -10,7 +10,7 @@ public class MyThread implements Runnable {
 
 
     public static Theater[] m = new Theater[5];
-    public static String[] Movies = {"Fanday", "Me Before You", "Kubo", "W", "Divergent"};
+    public static String[] Movies = {"Zootopia", "Star Wars", "Inception", "Godzilla", "Divergent"};
     public static TimeStamp TS = new TimeStamp();
     public static Random rand = new Random();
 
@@ -30,19 +30,19 @@ public class MyThread implements Runnable {
         try {
             for (int i = 0; i < 100; i++) {
                 getRandomTheaterTicket();
-                Thread.sleep(50);
+                Thread.sleep(1000);
             }
 
             if(threadName == "Apple")
-                Thread.sleep(1000);
+                Thread.sleep(300);
             else if(threadName == "Mango")
-                Thread.sleep(2000);
+                Thread.sleep(600);
             else if(threadName == "Tomato")
-                Thread.sleep(3000);
+                Thread.sleep(900);
             else if(threadName == "Melon")
-                Thread.sleep(4000);
+                Thread.sleep(1200);
             else if(threadName == "SuperTamz")
-                Thread.sleep(5000);
+                Thread.sleep(1500);
 
         } catch (InterruptedException e) {
             System.out.println("Thread " + threadName + " interrupted.");
@@ -53,7 +53,8 @@ public class MyThread implements Runnable {
     }
 
     public void showMyTicket() {
-        System.out.println("Thread: " + threadName + ", Result\n************************************");
+        System.out.println("Thread: " + threadName + ", Result");
+        System.out.println("************************************************************");
         for (int i = 0; i < 5; i++) {
             if (userTicket[i].isExist()) {
                 System.out.println("Thread: " + threadName + ", " + userTicket[i]);
@@ -86,7 +87,7 @@ public class MyThread implements Runnable {
 
                 if(n > 5) n = 5;
 
-                m[r].offerSeat(this, n, r);
+                m[r].offerSeat(this, n, r, TS);
             }
         } catch (NullPointerException e) {
             System.out.println("Thread: " + threadName + ", NullPointerException " + "r: " + r);
