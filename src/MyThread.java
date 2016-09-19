@@ -81,8 +81,13 @@ public class MyThread implements Runnable {
     public void getRandomTheaterTicket() {
         int r = rand.nextInt(5);
         try {
-            if(m[r].coutAvailableSeat() > 0)
-                m[r].offerSeat(this, rand.nextInt(m[r].coutAvailableSeat() + 1), r);
+            if(m[r].coutAvailableSeat() > 0) {
+                int n = rand.nextInt(m[r].coutAvailableSeat() + 1);
+
+                if(n > 5) n = 5;
+
+                m[r].offerSeat(this, n, r);
+            }
         } catch (NullPointerException e) {
             System.out.println("Thread: " + threadName + ", NullPointerException " + "r: " + r);
         }

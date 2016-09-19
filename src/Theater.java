@@ -74,7 +74,9 @@ public class Theater {
             try {
                 s = availableSeat.get(r);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("ArrayIndexOutOfBoundException: " + e);
+
+                return;
+                // System.out.println("ArrayIndexOutOfBoundException: " + e);
             }
 
             ReserveSeat(s);
