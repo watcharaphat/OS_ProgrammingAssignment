@@ -21,7 +21,7 @@ public class UserTicket {
     }
 
     public void onUserTicketAddTicket(String seat) {
-        if(seat == "")
+        if (seat == "")
             return;
         if (!this.exist) {
             this.mySeat += seat;

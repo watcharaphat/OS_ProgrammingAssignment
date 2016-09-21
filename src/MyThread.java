@@ -6,6 +6,7 @@ import java.util.Random;
 public class MyThread implements Runnable {
     private Thread t;
     private String threadName;
+    private int threadNum;
     public UserTicket[] userTicket;
 
 
@@ -13,11 +14,17 @@ public class MyThread implements Runnable {
     public static String[] Movies = {"Zootopia", "Star Wars", "Inception", "Godzilla", "Divergent"};
     public static TimeStamp TS = new TimeStamp();
     public static Random rand = new Random();
+    public static boolean[] isEnd = {false, false, false, false, false};
 
-    MyThread(String name) {
+    MyThread(String name, int threadNum) {
         this.threadName = name;
         System.out.println("Creating " + threadName);
         userTicket = new UserTicket[5];
+        this.threadNum = threadNum;
+    }
+
+    public static boolean allIsEnd() {
+        return isEnd[0] && isEnd[1] && isEnd[2] && isEnd[3] && isEnd[4];
     }
 
     public String getThreadName() {
@@ -36,32 +43,49 @@ public class MyThread implements Runnable {
     public void run() {
         System.out.println("Running " + threadName);
         try {
-            for (int i = 0; i < 30; i++) {
+            while (notOutOfSeat()) {
                 getRandomTheaterTicket();
                 Thread.sleep(1000);
             }
 
-            if(threadName == "Apple")
-                Thread.sleep(300);
-            else if(threadName == "Mango")
-                Thread.sleep(600);
-            else if(threadName == "Tomato")
-                Thread.sleep(900);
-            else if(threadName == "Melon")
-                Thread.sleep(1200);
-            else if(threadName == "SuperTamz")
-                Thread.sleep(1500);
+            Thread.sleep(1000);
+
+            if (threadName == "John")
+                Thread.sleep(1000);
+            else if (threadName == "Adam")
+                Thread.sleep(2000);
+            else if (threadName == "Alice")
+                Thread.sleep(3000);
+            else if (threadName == "Tony")
+                Thread.sleep(4000);
+            else if (threadName == "Rola")
+                Thread.sleep(5000);
+
 
         } catch (InterruptedException e) {
             System.out.println("Thread " + threadName + " interrupted.");
         }
 
         showMyTicket();
-        System.out.println("Thread " + threadName + " exiting.\n");
+        isEnd[threadNum] = true;
+        System.out.println("Thread " + threadName + " exiting.");
+        if (allIsEnd()) {
+            for (int i = 0; i < 5; i++)
+                m[i].showTheaterResult(i + 1);
+        }
+    }
+
+    public static boolean notOutOfSeat() {
+        boolean available = true;
+
+        if (m[0].coutAvailableSeat() == 0 && m[1].coutAvailableSeat() == 0 && m[2].coutAvailableSeat() == 0 && m[3].coutAvailableSeat() == 0 && m[4].coutAvailableSeat() == 0)
+            available = false;
+
+        return available;
     }
 
     public void showMyTicket() {
-        System.out.println("Thread: " + threadName + ", Result");
+        System.out.println("\nThread: " + threadName + ", Result");
         System.out.println("************************************************************");
         for (int i = 0; i < 5; i++) {
             if (userTicket[i].isExist()) {
@@ -90,10 +114,10 @@ public class MyThread implements Runnable {
     public void getRandomTheaterTicket() {
         int r = rand.nextInt(5);
         try {
-            if(m[r].coutAvailableSeat() > 0) {
+            if (m[r].coutAvailableSeat() > 0) {
                 int n = rand.nextInt(m[r].coutAvailableSeat() + 1);
 
-                if(n > 5) n = 5;
+                if (n > 5) n = 5;
 
                 m[r].offerSeat(this, n, r, TS);
             }
@@ -120,20 +144,20 @@ public class MyThread implements Runnable {
     public static void main(String[] args) {
         initTheater();
 
-        MyThread T1 = new MyThread("Apple");
+        MyThread T1 = new MyThread("John", 0);
         T1.start();
 
-        MyThread T2 = new MyThread("Mango");
+        MyThread T2 = new MyThread("Adam", 1);
         T2.start();
 
-        MyThread T3 = new MyThread("Tomato");
+        MyThread T3 = new MyThread("Alice", 2);
         T3.start();
 
-        MyThread T4 = new MyThread("Melon");
+        MyThread T4 = new MyThread("Tony", 3);
         T4.start();
 
-        MyThread T5 = new MyThread("SuperTamz");
+        MyThread T5 = new MyThread("Rola", 4);
         T5.start();
-    }
 
+    }
 }
