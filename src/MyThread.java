@@ -1,7 +1,7 @@
 import java.util.Random;
 
 /**
- * Created by watcharaphat on 9/11/2016 AD.
+ * MyThread is the class that implements Runnable interface to use thread. This class contain main method for run the project.
  */
 public class MyThread implements Runnable {
     private Thread t;
@@ -23,7 +23,7 @@ public class MyThread implements Runnable {
         this.threadNum = threadNum;
     }
 
-    public static boolean allIsEnd() {
+    private static boolean allIsEnd() {
         return isEnd[0] && isEnd[1] && isEnd[2] && isEnd[3] && isEnd[4];
     }
 
@@ -74,7 +74,7 @@ public class MyThread implements Runnable {
         }
     }
 
-    public static boolean notOutOfSeat() {
+    private static boolean notOutOfSeat() {
         boolean available = true;
 
         if (m[0].coutAvailableSeat() == 0 && m[1].coutAvailableSeat() == 0 && m[2].coutAvailableSeat() == 0

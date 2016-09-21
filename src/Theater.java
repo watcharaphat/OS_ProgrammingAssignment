@@ -1,7 +1,7 @@
 import java.util.*;
 
 /**
- * Created by watcharaphat on 9/12/2016 AD.
+ * The class that is supposed to be Theater. It contain seat, ticket and movie.
  */
 public class Theater {
     private String movieName;

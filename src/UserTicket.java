@@ -1,6 +1,7 @@
 /**
- * Created by watcharaphat on 9/17/2016 AD.
+ * UserTicket Class is the class to store user's holding tickets.
  */
+
 public class UserTicket {
     private String theaterName;
     private String mySeat;

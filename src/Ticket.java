@@ -1,7 +1,7 @@
 import java.util.Vector;
 
 /**
- * Created by watcharaphat on 9/14/2016 AD.
+ * Ticket class to store user for each seat.
  */
 
 public class Ticket {
