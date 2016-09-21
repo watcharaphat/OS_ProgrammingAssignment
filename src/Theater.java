@@ -9,13 +9,12 @@ public class Theater {
     private Ticket[] ticket = new Ticket[20];
 
     public static Random rand = new Random();
-
     public static Theater[] m = new Theater[5];
 
     Theater(String movieName) {
         this.movieName = movieName;
-
         int p = 0;
+
         for (int i = 65; i < 69; i++) {
             for (int j = 1; j <= 5; j++) {
                 availableSeat.add(Character.toString((char) i) + j);
@@ -32,16 +31,12 @@ public class Theater {
         return this.movieName;
     }
 
-    public void setName(String movieName) {
+    public void setMovieName(String movieName) {
         this.movieName = movieName;
     }
 
     public void ReserveSeat(String s) {
         this.availableSeat.remove(s);
-    }
-
-    public void CancelSeats(Vector v) {
-        this.availableSeat.addAll(v);
     }
 
     public void CancelSeat(String s) {
@@ -104,21 +99,7 @@ public class Theater {
                 System.out.println("[" + TS.getTimeStamp() + "]" + " Cancel seat " + "[" + movieName + ": " + s + "]\t" + " for user: " + T.getThreadName());
                 CancelSeat(s);
             }
-
             // Add user to ticket
-
         }
-    }
-
-
-    // For testing this class.
-
-    public static void main(String[] args) {
-        Theater m1 = new Theater("Fanday");
-        System.out.println(m1.availableSeat);
-        System.out.println(rand.nextInt(2));
-
-        m[0] = new Theater("Fanday");
-        System.out.println(getIndexFromSeat("E4"));
     }
 }

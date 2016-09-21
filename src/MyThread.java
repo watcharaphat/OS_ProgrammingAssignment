@@ -9,9 +9,9 @@ public class MyThread implements Runnable {
     private int threadNum;
     private UserTicket[] userTicket;
 
-
     public static Theater[] m = new Theater[5];
     public static String[] Movies = {"Zootopia", "Star Wars", "Inception", "Godzilla", "Divergent"};
+    public static String[] Names = {"John", "Adam", "Alice", "Tony", "Rola"};
     public static TimeStamp TS = new TimeStamp();
     public static Random rand = new Random();
     public static boolean[] isEnd = {false, false, false, false, false};
@@ -50,15 +50,15 @@ public class MyThread implements Runnable {
 
             Thread.sleep(10000);
 
-            if (threadName == "John")
+            if (threadName == Names[0])
                 Thread.sleep(1000);
-            else if (threadName == "Adam")
+            else if (threadName == Names[1])
                 Thread.sleep(2000);
-            else if (threadName == "Alice")
+            else if (threadName == Names[2])
                 Thread.sleep(3000);
-            else if (threadName == "Tony")
+            else if (threadName == Names[3])
                 Thread.sleep(4000);
-            else if (threadName == "Rola")
+            else if (threadName == Names[4])
                 Thread.sleep(5000);
 
 
@@ -128,15 +128,10 @@ public class MyThread implements Runnable {
         } catch (NullPointerException e) {
             System.out.println("Thread: " + threadName + ", NullPointerException " + "r: " + r);
         }
-
-        // userTicket[r].onUserTicketAddTicket(v.get(i).toString());
     }
 
     public boolean decisionAccept() {
-        if (rand.nextInt(2) > 0)
-            return true;
-        else
-            return false;
+        return rand.nextInt(2) > 0;
     }
 
     public static void initTheater() {
@@ -148,19 +143,19 @@ public class MyThread implements Runnable {
     public static void main(String[] args) {
         initTheater();
 
-        MyThread T1 = new MyThread("John", 0);
+        MyThread T1 = new MyThread(Names[0], 0);
         T1.start();
 
-        MyThread T2 = new MyThread("Adam", 1);
+        MyThread T2 = new MyThread(Names[1], 1);
         T2.start();
 
-        MyThread T3 = new MyThread("Alice", 2);
+        MyThread T3 = new MyThread(Names[2], 2);
         T3.start();
 
-        MyThread T4 = new MyThread("Tony", 3);
+        MyThread T4 = new MyThread(Names[3], 3);
         T4.start();
 
-        MyThread T5 = new MyThread("Rola", 4);
+        MyThread T5 = new MyThread(Names[4], 4);
         T5.start();
 
     }
