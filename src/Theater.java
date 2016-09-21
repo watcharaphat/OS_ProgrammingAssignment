@@ -97,7 +97,8 @@ public class Theater {
 
             if (T.decisionAccept() && s != "") {
                 System.out.println("[" + TS.getTimeStamp() + "]" + " Accept seat " + "[" + movieName + ": " + s + "]\t" + " for user: " + T.getThreadName());
-                T.userTicket[position].onUserTicketAddTicket(s);
+                // T.userTicket[position].onUserTicketAddTicket(s);
+                T.addTicket(position, s);
                 ticket[getIndexFromSeat(s)].onTicketAddUser(T.getThreadName());
             } else {
                 System.out.println("[" + TS.getTimeStamp() + "]" + " Cancel seat " + "[" + movieName + ": " + s + "]\t" + " for user: " + T.getThreadName());

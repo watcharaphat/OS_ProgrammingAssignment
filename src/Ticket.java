@@ -25,15 +25,11 @@ public class Ticket {
         return s;
     }
 
-    public void setSeat(String s) {
-        this.Seat = s;
-    }
-
     public void onTicketAddUser(String userName) {
         this.userName.add(userName);
     }
 
-    public void onTicketAddUserAll(Collection c) {
+    public void onTicketAddAllUser(Collection c) {
         this.userName.addAll(c);
     }
 }

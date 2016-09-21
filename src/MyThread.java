@@ -7,7 +7,7 @@ public class MyThread implements Runnable {
     private Thread t;
     private String threadName;
     private int threadNum;
-    public UserTicket[] userTicket;
+    private UserTicket[] userTicket;
 
 
     public static Theater[] m = new Theater[5];
@@ -48,7 +48,7 @@ public class MyThread implements Runnable {
                 Thread.sleep(1000);
             }
 
-            Thread.sleep(1000);
+            Thread.sleep(10000);
 
             if (threadName == "John")
                 Thread.sleep(1000);
@@ -92,6 +92,10 @@ public class MyThread implements Runnable {
                 System.out.println("Thread: " + threadName + ", " + userTicket[i]);
             }
         }
+    }
+
+    public void addTicket(int position, String seat) {
+        userTicket[position].onUserTicketAddTicket(seat);
     }
 
     public void start() {
