@@ -7,11 +7,11 @@ import java.util.Vector;
 
 public class Ticket {
     private String Seat;
-    private Vector userName;
+    private Vector<String> userName;
 
     Ticket(String seat) {
         this.Seat = seat;
-        userName = new Vector();
+        userName = new Vector<String>();
     }
 
     public String toString() {
@@ -22,14 +22,11 @@ public class Ticket {
             else
                 s += (", " + userName.get(i));
         }
+
         return s;
     }
 
     public void onTicketAddUser(String userName) {
         this.userName.add(userName);
-    }
-
-    public void onTicketAddAllUser(Collection c) {
-        this.userName.addAll(c);
     }
 }

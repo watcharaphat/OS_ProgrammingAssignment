@@ -9,8 +9,8 @@ import java.text.SimpleDateFormat;
 public class TimeStamp {
     public String getTimeStamp() {
         Date date = new Date();
-        //String TimeStamp = new Timestamp(date.getTime()).toString();
         String TimeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(date);
+
         return TimeStamp;
     }
 }
