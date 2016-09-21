@@ -119,9 +119,9 @@ public class MyThread implements Runnable {
         int r = rand.nextInt(5);
         try {
             if (m[r].coutAvailableSeat() > 0) {
-                int n = rand.nextInt(m[r].coutAvailableSeat() + 1);
+                int n = rand.nextInt(5) + 1;
 
-                if (n > 5) n = 5;
+                if (n > m[r].coutAvailableSeat()) n = m[r].coutAvailableSeat();
 
                 m[r].offerSeat(this, n, r, TS);
             }
