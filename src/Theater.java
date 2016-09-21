@@ -5,16 +5,17 @@ import java.util.*;
  */
 public class Theater {
     private String movieName;
-    private Vector<String> availableSeat = new Vector<String>();
-    private Ticket[] ticket = new Ticket[20];
+    private Vector<String> availableSeat;
+    private Ticket[] ticket;
 
     public static Random rand = new Random();
-    public static Theater[] m = new Theater[5];
 
     Theater(String movieName) {
         this.movieName = movieName;
-        int p = 0;
+        this.availableSeat = new Vector<String>();
+        this.ticket = new Ticket[20];
 
+        int p = 0;
         for (int i = 'A'; i < 'E'; i++) {
             for (int j = 1; j <= 5; j++) {
                 availableSeat.add(Character.toString((char) i) + j);
@@ -53,11 +54,11 @@ public class Theater {
 
         System.out.println("\nTheater: " + theaterNum + ", Movie: " + this.movieName);
 
-        for(int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20; i++) {
 
             System.out.print(ticket[i] + "\t\t");
 
-            if(i%5 == 4)
+            if (i % 5 == 4)
                 System.out.println();
         }
 
@@ -65,13 +66,9 @@ public class Theater {
     }
 
     public void offerSeat(MyThread T, int n, int position, TimeStamp TS) {
-        // if(availableSeat.size() < n)
-        //    return;
-
         for (int i = 0; i < n; i++) {
             if (this.coutAvailableSeat() == 0) {
-                // System.out.println("Out of ticket.");
-                break;
+                return;
             }
 
             // one ticket for each i
@@ -82,24 +79,33 @@ public class Theater {
             try {
                 s = availableSeat.get(r);
             } catch (ArrayIndexOutOfBoundsException e) {
-                // System.out.println("ArrayIndexOutOfBoundException: " + e);
                 return;
             }
 
             ReserveSeat(s);
 
-            // T.sleepThread(rand.nextInt(100) + 1);
+            int decisionTime = rand.nextInt(40000) + 1;
+            if (decisionTime > 30000) {
+                timeOutAt30Sec(T, s, TS);
+                return;
+            }
+
+            T.sleepThread(decisionTime);
 
             if (T.decisionAccept() && s != "") {
-                System.out.println("[" + TS.getTimeStamp() + "]" + " Accept seat " + "[" + movieName + ": " + s + "]\t" + " for user: " + T.getThreadName());
-                // T.userTicket[position].onUserTicketAddTicket(s);
+                System.out.println("[" + TS.getTimeStamp() + "]" + " Accept seat " + "[" + movieName + ": " + s + "]\t" + "user: " + T.getThreadName());
                 T.addTicket(position, s);
                 ticket[getIndexFromSeat(s)].onTicketAddUser(T.getThreadName());
             } else {
-                System.out.println("[" + TS.getTimeStamp() + "]" + " Cancel seat " + "[" + movieName + ": " + s + "]\t" + " for user: " + T.getThreadName());
+                System.out.println("[" + TS.getTimeStamp() + "]" + " Cancel seat " + "[" + movieName + ": " + s + "]\t" + "user: " + T.getThreadName());
                 CancelSeat(s);
             }
-            // Add user to ticket
         }
+    }
+
+    public void timeOutAt30Sec(MyThread T, String s, TimeStamp TS) {
+        T.sleepThread(30000);
+        System.out.println("[" + TS.getTimeStamp() + "]" + " Time-out at " + "[" + movieName + ": " + s + "]\t" + "user: " + T.getThreadName());
+        CancelSeat(s);
     }
 }

@@ -1,4 +1,3 @@
-import java.util.Collection;
 import java.util.Vector;
 
 /**
@@ -16,7 +15,7 @@ public class Ticket {
 
     public String toString() {
         String s = this.Seat + ": ";
-        for(int i = 0; i < userName.size(); i++) {
+        for (int i = 0; i < userName.size(); i++) {
             if (i == 0)
                 s += userName.get(i);
             else

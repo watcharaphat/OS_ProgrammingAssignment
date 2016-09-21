@@ -78,7 +78,7 @@ public class MyThread implements Runnable {
         boolean available = true;
 
         if (m[0].coutAvailableSeat() == 0 && m[1].coutAvailableSeat() == 0 && m[2].coutAvailableSeat() == 0
-            && m[3].coutAvailableSeat() == 0 && m[4].coutAvailableSeat() == 0)
+                && m[3].coutAvailableSeat() == 0 && m[4].coutAvailableSeat() == 0)
             available = false;
 
         return available;
