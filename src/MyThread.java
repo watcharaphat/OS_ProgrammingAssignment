@@ -16,6 +16,8 @@ public class MyThread implements Runnable {
     public static Random rand = new Random();
     public static boolean[] isEnd = {false, false, false, false, false};
 
+    static Object[] theaterLock = new Object[5];
+
     MyThread(String name, int threadNum) {
         this.threadName = name;
         System.out.println("Creating " + threadName);
@@ -121,9 +123,16 @@ public class MyThread implements Runnable {
             if (m[r].coutAvailableSeat() > 0) {
                 int n = rand.nextInt(5) + 1;
 
-                if (n > m[r].coutAvailableSeat()) n = m[r].coutAvailableSeat();
+                synchronized (theaterLock[r]) {
 
-                m[r].offerSeat(this, n, r, TS);
+                    if (n > m[r].coutAvailableSeat())
+                        n = m[r].coutAvailableSeat();
+
+                    m[r].offerSeat(this, n, r, TS);
+
+                }
+
+
             }
         } catch (NullPointerException e) {
             System.out.println("Thread: " + threadName + ", NullPointerException " + "r: " + r);
@@ -140,8 +149,15 @@ public class MyThread implements Runnable {
         }
     }
 
+    public static void initLock() {
+        for (int i = 0; i < 5; i++) {
+            theaterLock[i] = new Object();
+        }
+    }
+
     public static void main(String[] args) {
         initTheater();
+        initLock();
 
         MyThread T1 = new MyThread(Names[0], 0);
         T1.start();

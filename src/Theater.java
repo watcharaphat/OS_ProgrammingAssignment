@@ -84,8 +84,13 @@ public class Theater {
 
             ReserveSeat(s);
 
+
             int decisionTime = rand.nextInt(40000) + 1;
-            if (decisionTime > 30000) {
+
+            // use decisionTime = 0 for non-delay testing.
+            // int decisionTime = 0;
+			
+			if (decisionTime > 30000) {
                 timeOutAt30Sec(T, s, TS);
                 return;
             }
